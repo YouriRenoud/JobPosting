@@ -2,6 +2,7 @@
 Web Programming Group 7 Assignment
 
 ## Project Structure
+```
 WebProgAssignment251/
 ├── app/
 │   ├── Controllers/
@@ -46,3 +47,4 @@ WebProgAssignment251/
     │
     ├── .htaccess                 // Rewrites all requests to index.php
     └── index.php                 // THE ONLY ENTRY POINT! The Router.
+```
