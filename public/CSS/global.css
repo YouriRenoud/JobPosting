@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #0d6efd;
+    --secondary-color: #6c757d;
+    --light-bg: #f8f9fa;
+    --dark-bg: #212529;
+    --text-color: #212529;
+    --radius: 8px;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+a:hover {
+    color: #084298;
+}
+
+.navbar {
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--primary-color) !important;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #555 !important;
+    transition: color 0.2s ease;
+}
+.nav-link:hover, .nav-link.active {
+    color: var(--primary-color) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #084298;
+}
+.btn-outline-primary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.card {
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+.card-title {
+    color: var(--primary-color);
+}
+
+footer {
+    background-color: var(--dark-bg);
+    color: #dee2e6;
+    padding: 40px 0 20px;
+    margin-top: 60px;
+}
+
+footer h5, footer h6 {
+    color: white;
+    font-weight: 600;
+}
+
+footer a {
+    color: #adb5bd;
+    transition: color 0.2s ease;
+}
+footer a:hover {
+    color: white;
+}
+
+footer .social-icons a {
+    color: #adb5bd;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+footer .social-icons a:hover {
+    color: white;
+}
+
+hr {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.container {
+    max-width: 1200px;
+}
+
+.shadow-sm {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+}
