@@ -4,6 +4,7 @@ include '../app/Views/partials/header.php';
 
 require_once '../app/controllers/JobsController.php';
 require_once '../app/controllers/CategoriesController.php';
+require_once '../app/controllers/AdminController.php';
 
 $jobsController = new JobsController();
 $categoriesController = new CategoriesController();
@@ -21,6 +22,19 @@ if (!empty($keyword)) {
     $jobs = $jobsController->listApprovedJobs();
 }
 ?>
+
+<?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin') { 
+    $adminController = new AdminController();
+    $stats = $adminController->getStats();
+    ?>
+    <section class="text-center py-5 bg-white shadow-sm rounded mb-4">
+        <h1 class="fw-bold mb-3">Stats of JobFinder</h1>
+        <p class="text-muted mb-4">Total Jobs: <?= $stats['total_jobs'] ?></p>
+        <p class="text-muted mb-4">Total Pending Jobs: <?= $stats['pending_jobs'] ?></p>
+        <p class="text-muted mb-4">Total Users: <?= $stats['users_number'] ?></p>
+        <p class="text-muted mb-4">Total Employers: <?= $stats['active_employers'] ?></p>
+    </section>
+<?php } ?>
 
 <section class="text-center py-5 bg-white shadow-sm rounded mb-4">
     <h1 class="fw-bold mb-3">Find Your Next Opportunity</h1>

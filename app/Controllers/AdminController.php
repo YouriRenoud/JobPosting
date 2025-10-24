@@ -103,6 +103,7 @@ class AdminController {
         $stats['total_jobs'] = $this->db->query("SELECT COUNT(*) FROM Jobs")->fetchColumn();
         $stats['active_employers'] = $this->db->query("SELECT COUNT(*) FROM Employers")->fetchColumn();
         $stats['pending_jobs'] = $this->db->query("SELECT COUNT(*) FROM Jobs WHERE status='pending'")->fetchColumn();
+        $stats['users_number'] = $this->db->query("SELECT COUNT(*) FROM Users")->fetchColumn();
         return $stats;
     }
 }
