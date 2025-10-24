@@ -37,6 +37,15 @@ class Job {
         return $stmt->execute();
     }
 
+    public function getAll() {
+        $query = "SELECT j.*, e.company_name, c.category_name
+                FROM {$this->table_name} j
+                JOIN Employers e ON j.employer_id = e.id
+                JOIN JobCategories c ON j.category_id = c.id
+                ORDER BY j.created_at DESC";
+        return $this->conn->query($query);
+    }
+
     public function getAllApproved() {
         $query = "SELECT j.*, e.company_name, c.category_name
                 FROM {$this->table_name} j
@@ -87,10 +96,30 @@ class Job {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getByStatus($status) {
+        $query = "SELECT j.*, e.company_name, c.category_name
+                FROM Jobs j
+                JOIN Employers e ON j.employer_id = e.id
+                JOIN JobCategories c ON j.category_id = c.id
+                WHERE j.status = :status
+                ORDER BY j.created_at DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":status", $status);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function updateStatus($id, $status) {
         $query = "UPDATE {$this->table_name} SET status=:status WHERE id=:id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":status", $status);
+        $stmt->bindParam(":id", $id);
+        return $stmt->execute();
+    }
+
+    public function delete($id) {
+        $query = "DELETE FROM {$this->table_name} WHERE id=:id";
+        $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
         return $stmt->execute();
     }

@@ -35,7 +35,7 @@ class User {
     }
 
     public function getAll() {
-        $query = "SELECT id, name, email, role FROM {$this->table_name}";
+        $query = "SELECT * FROM {$this->table_name}";
         return $this->conn->query($query);
     }
 

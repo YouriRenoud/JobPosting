@@ -6,6 +6,43 @@ require_once __DIR__ . '/../models/Job.php';
 require_once __DIR__ . '/../models/Category.php';
 require_once __DIR__ . '/../models/StaffAction.php';
 
+$database = new Database();
+$db = $database->getConnection();
+
+$jobModel = new Job($db);
+
+$action = $_GET['action'] ?? null;
+$id = $_GET['id'] ?? null;
+
+if ($action === 'approveJob' && $id) {
+    if ($jobModel->updateStatus($id, 'approved')) {
+        header("Location: /WebProgAssignment251/app/Views/admin/moderate.php?approved=1");
+        exit;
+    } else {
+        header("Location: /WebProgAssignment251/app/Views/admin/moderate.php?error=1");
+        exit;
+    }
+}
+if ($action === 'rejectJob' && $id) {
+    if ($jobModel->updateStatus($id, 'rejected')) {
+        header("Location: /WebProgAssignment251/app/Views/admin/moderate.php?rejected=1");
+        exit;
+    } else {
+        header("Location: /WebProgAssignment251/app/Views/admin/moderate.php?error=1");
+        exit;
+    }
+}
+if ($action == 'deleteUser' && $id) {
+    $userModel = new User($db);
+    if ($userModel->delete($id)) {
+        header("Location: /WebProgAssignment251/app/Views/admin/users.php?deleted=1");
+        exit;
+    } else {
+        header("Location: /WebProgAssignment251/app/Views/admin/users.php?error=1");
+        exit;
+    }
+}
+
 class AdminController {
     private $db;
 
@@ -19,35 +56,48 @@ class AdminController {
         return $user->getAll();
     }
 
+    public function getAllJobs() {
+        $job = new Job($this->db);
+        return $job->getAll();
+    }
+
     public function deleteUser($id) {
         $user = new User($this->db);
         return $user->delete($id);
     }
 
-    public function createCategory($name) {
-        $cat = new Category($this->db);
-        $cat->category_name = $name;
-        return $cat->create();
-    }
-
-    public function deleteCategory($id) {
-        $cat = new Category($this->db);
-        return $cat->delete($id);
-    }
-
-    // === Approve / Reject Jobs ===
-    public function updateJobStatus($job_id, $status, $staff_id) {
+    public function deleteJob($id) {
         $job = new Job($this->db);
-        $job->updateStatus($job_id, $status);
-
-        $log = new StaffAction($this->db);
-        $log->staff_id = $staff_id;
-        $log->job_id = $job_id;
-        $log->action_type = $status;
-        $log->logAction();
+        return $job->delete($id);
     }
 
-    // === View system statistics ===
+    public function getPendingJobs() {
+        $job = new Job($this->db);
+        return $job->getByStatus('pending');
+    }
+
+    public function approveJob($id) {
+        $job = new Job($this->db);
+        return $job->updateStatus($id, 'approved');
+
+        $action = new StaffActions($this->db);
+        $action->staff_id = $_SESSION['user']['id'];
+        $action->job_id = $id;
+        $action->action_type = 'approve';
+        $action->logAction();
+    }
+
+    public function rejectJob($id) {
+        $job = new Job($this->db);
+        return $job->updateStatus($id, 'rejected');
+
+        $action = new StaffActions($this->db);
+        $action->staff_id = $_SESSION['user']['id'];
+        $action->job_id = $id;
+        $action->action_type = 'reject';
+        $action->logAction();
+    }
+
     public function getStats() {
         $stats = [];
         $stats['total_jobs'] = $this->db->query("SELECT COUNT(*) FROM Jobs")->fetchColumn();

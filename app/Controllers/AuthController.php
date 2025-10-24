@@ -15,7 +15,7 @@ class AuthController {
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password_hash = password_hash($data['password'], PASSWORD_BCRYPT);
-        $user->role = $data['role'] ?? 'employer';
+        $user->role = $data['role'] ?? 'visitor';
         return $user->create();
     }
 

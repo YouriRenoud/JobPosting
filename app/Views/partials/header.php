@@ -12,15 +12,16 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    <link href="assets/css/global.css" rel="stylesheet">
+    <link href="/WebProgAssignment251/public/CSS/global.css" rel="stylesheet">
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg sticky-top">
+<nav class="navbar navbar-expand-lg sticky-top bg-dark shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="index.php">
+        <a class="navbar-brand fw-bold text-primary" href="/WebProgAssignment251/public/index.php">
             <i class="fa-solid fa-briefcase"></i> JobFinder
         </a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -29,23 +30,42 @@ session_start();
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
-                <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Jobs'?'active':'') ?>" href="index.php?controller=jobs&action=list">Jobs</a></li>
-                <li class="nav-item"><a class="nav-link" href="index.php?controller=categories&action=list">Categories</a></li>
-                <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
 
                 <?php if (isset($_SESSION['user'])): ?>
-                    <?php if ($_SESSION['user']['role'] === 'employer'): ?>
-                        <li class="nav-item"><a class="nav-link" href="index.php?controller=employers&action=dashboard">My Dashboard</a></li>
-                    <?php elseif ($_SESSION['user']['role'] === 'admin'): ?>
-                        <li class="nav-item"><a class="nav-link" href="index.php?controller=admin&action=dashboard">Admin Panel</a></li>
+                    <?php $role = $_SESSION['user']['role']; ?>
+
+                    <?php if ($role === 'admin'): ?>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Categories'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/categories.php">Categories</a></li>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Users'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/users.php">Users</a></li>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Job Postings'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/jobs.php">Job Postings</a></li>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Moderate'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/moderate.php">Moderate</a></li>
+
+                    <?php elseif ($role === 'staff'): ?>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Job Postings'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/jobs.php">Job Postings</a></li>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Moderate'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/moderate.php">Moderate</a></li>
+
+                    <?php elseif ($role === 'employer'): ?>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Company'?'active':'') ?>" href="/WebProgAssignment251/app/Views/employers/register.php">Company</a></li>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='New Job'?'active':'') ?>" href="/WebProgAssignment251/app/Views/employers/dashboard.php">My Jobs</a></li>
+
+                    <?php elseif ($role === 'visitor'): ?>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Company'?'active':'') ?>" href="/WebProgAssignment251/public/applications.php">Applications</a></li>
                     <?php endif; ?>
+
                     <li class="nav-item">
-                        <a class="btn btn-outline-danger ms-2" href="/WebProgAssignment251/public/logout.php">
+                        <a class="btn btn-outline-danger ms-3" href="/WebProgAssignment251/public/logout.php">
                             <i class="fa-solid fa-right-from-bracket"></i> Logout
                         </a>
                     </li>
+
                 <?php else: ?>
+                    <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
+                    <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Contact'?'active':'') ?>" href="contact.php">Contact</a></li>
+
                     <li class="nav-item">
                         <a class="btn btn-outline-primary ms-2" href="/WebProgAssignment251/public/login.php">
                             <i class="fa-solid fa-user"></i> Login

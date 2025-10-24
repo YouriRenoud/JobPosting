@@ -9,12 +9,26 @@
     --radius: 8px;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--light-bg);
     color: var(--text-color);
-    margin: 0;
-    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+    padding-bottom: 60px;
 }
 
 h1, h2, h3, h4, h5 {
@@ -25,6 +39,7 @@ h1, h2, h3, h4, h5 {
 a {
     text-decoration: none;
     color: var(--primary-color);
+    transition: color 0.2s ease;
 }
 a:hover {
     color: #084298;
@@ -74,34 +89,52 @@ a:hover {
 footer {
     background-color: var(--dark-bg);
     color: #dee2e6;
-    padding: 40px 0 20px;
-    margin-top: 60px;
+    padding: 20px 0;
+    font-size: 0.7rem;
+    line-height: 1.2;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+}
+
+footer .container {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 footer h5, footer h6 {
     color: white;
     font-weight: 600;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+}
+
+footer p, footer li, footer a {
+    font-size: 0.7rem;
+    line-height: 1.2;
 }
 
 footer a {
     color: #adb5bd;
     transition: color 0.2s ease;
 }
-footer a:hover {
-    color: white;
+footer a.text-secondary:hover {
+    color: #084298 !important;
 }
 
 footer .social-icons a {
     color: #adb5bd;
     margin-right: 10px;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 footer .social-icons a:hover {
-    color: white;
+    color: var(--primary-color);
 }
 
-hr {
+footer hr {
     border-color: rgba(255, 255, 255, 0.1);
+    margin: 0.4rem 0;
 }
 
 .container {
