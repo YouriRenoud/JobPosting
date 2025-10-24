@@ -40,14 +40,9 @@ class EmployersController {
         return $emp->getByUser($user_id);
     }
 
-    // Get jobs posted by this employer
     public function getMyJobs($employer_id) {
         $job = new Job($this->db);
-        $query = "SELECT * FROM Jobs WHERE employer_id = :employer_id";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(":employer_id", $employer_id);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $job->getByEmployer($employer_id);
     }
 }
 ?>

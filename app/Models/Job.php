@@ -96,6 +96,18 @@ class Job {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getByEmployer($employer_id) {
+        $query = "SELECT j.*, c.category_name
+                FROM Jobs j
+                JOIN JobCategories c ON j.category_id = c.id
+                WHERE j.employer_id = :employer_id
+                ORDER BY j.created_at DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":employer_id", $employer_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getByStatus($status) {
         $query = "SELECT j.*, e.company_name, c.category_name
                 FROM Jobs j
