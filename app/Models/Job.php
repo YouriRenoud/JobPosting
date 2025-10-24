@@ -135,5 +135,31 @@ class Job {
         $stmt->bindParam(":id", $id);
         return $stmt->execute();
     }
+    
+    public function deleteJobWithReason($job, $reason) {
+        $this->delete($job['id']);
+
+        $message = "Your job posting '{$job['title']}' was removed. Reason: {$reason}";
+
+        $query = "INSERT INTO Notifications (employer_id, job_title, job_description, message)
+                VALUES (:employer_id, :job_title, :job_description, :message)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":employer_id", $job['employer_id']);
+        $stmt->bindParam(":job_title", $job['title']);
+        $stmt->bindParam(":job_description", $job['description']);
+        $stmt->bindParam(":message", $message);
+        $stmt->execute();
+    }
+
+    public function getNotificationsByEmployer($employer_id) {
+        $query = "SELECT *
+                FROM Notifications n
+                WHERE n.employer_id = :employer_id
+                ORDER BY n.created_at DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":employer_id", $employer_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

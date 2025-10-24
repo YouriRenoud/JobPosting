@@ -57,5 +57,13 @@ class Employer {
         $stmt->bindParam(":description", $this->description);
         return $stmt->execute();
     }
+
+    public function updateLogo() {
+        $query = "UPDATE {$this->table_name} SET logo=:logo WHERE id=:id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":logo", $this->logo);
+        return $stmt->execute();
+    }
 }
 ?>

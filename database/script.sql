@@ -3,6 +3,7 @@
 CREATE DATABASE IF NOT EXISTS job_posting_website;
 USE job_posting_website;
 
+DROP TABLE IF EXISTS Notifications;
 DROP TABLE IF EXISTS Applications;
 DROP TABLE IF EXISTS StaffActions;
 DROP TABLE IF EXISTS Jobs;
@@ -71,6 +72,16 @@ CREATE TABLE Applications (
     cover_letter TEXT,
     applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (job_id) REFERENCES Jobs(id) ON DELETE CASCADE
+);
+
+CREATE TABLE Notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    employer_id INT NOT NULL,
+    job_title VARCHAR(150) NOT NULL,
+    job_description TEXT NOT NULL,
+    message VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (employer_id) REFERENCES Employers(id) ON DELETE CASCADE
 );
 
 -- SAMPLE DATA

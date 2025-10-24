@@ -35,6 +35,13 @@ class EmployersController {
         return $emp->update();
     }
 
+    public function updateLogo($id, $data) {
+        $emp = new Employer($this->db);
+        $emp->id = $id;
+        $emp->logo = $data['logo'];
+        return $emp->updateLogo();
+    }
+
     public function getProfile($user_id) {
         $emp = new Employer($this->db);
         return $emp->getByUser($user_id);
@@ -43,6 +50,11 @@ class EmployersController {
     public function getMyJobs($employer_id) {
         $job = new Job($this->db);
         return $job->getByEmployer($employer_id);
+    }
+
+    public function getNotifications($employer_id) {
+        $notif = new Job($this->db);
+        return $notif->getNotificationsByEmployer($employer_id);
     }
 }
 ?>

@@ -17,7 +17,28 @@ if (!$employer) {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (isset($_GET['delete'])) {
+    $job_id = (int)$_GET['delete'];
+    $jobsController->deleteJob($job_id, $employer['id']);
+    $message = "Job deleted successfully.";
+}
+
+if (isset($_POST['update_job'])) {
+    $job_id = (int)$_POST['job_id'];
+    $data = [
+        'category_id' => $_POST['category_id'],
+        'title' => $_POST['title'],
+        'location' => $_POST['location'],
+        'description' => $_POST['description'],
+        'requirements' => $_POST['requirements'],
+        'salary' => $_POST['salary'],
+        'deadline' => $_POST['deadline']
+    ];
+    $jobsController->updateJob($job_id, $data);
+    $message = "Job updated successfully.";
+}
+
+if (isset($_POST['create_job'])) {
     $data = [
         'employer_id' => $employer['id'],
         'category_id' => $_POST['category_id'],
@@ -28,16 +49,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'salary' => $_POST['salary'],
         'deadline' => $_POST['deadline']
     ];
-
     $jobsController->createJob($data);
     $message = "New job posted successfully! Waiting for approval.";
 }
 
 $jobs = $empController->getMyJobs($employer['id']);
 $categories = $catController->getAllCategories();
+$notifications = $empController->getNotifications($employer['id']);
 ?>
 
 <div class="container my-5">
+
+    <h2 class="mb-4 text-primary"><i class="fa-solid fa-bell"></i> Notifications</h2>
+
+    <?php if (empty($notifications)): ?>
+        <p class="text-muted">No notifications at the moment.</p>
+    <?php else: ?>
+        <ul class="list-group mb-5 shadow-sm">
+            <?php foreach ($notifications as $notif): ?>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div>
+                        <strong><?= htmlspecialchars($notif['job_title']) ?></strong><br>
+                        <span><?= htmlspecialchars($notif['job_description']) ?></span><br>
+                        <span><?= htmlspecialchars($notif['message']) ?></span>
+                    </div>
+                    <small class="text-muted"><?= date("M d, Y H:i", strtotime($notif['created_at'])) ?></small>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
     <h2 class="mb-4 text-primary"><i class="fa-solid fa-briefcase"></i> My Job Postings</h2>
 
     <?php if (!empty($message)): ?>
@@ -55,6 +96,7 @@ $categories = $catController->getAllCategories();
                     <th>Location</th>
                     <th>Status</th>
                     <th>Deadline</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,11 +105,80 @@ $categories = $catController->getAllCategories();
                         <td><?= htmlspecialchars($job['title']) ?></td>
                         <td><?= htmlspecialchars($job['category_name']) ?></td>
                         <td><?= htmlspecialchars($job['location']) ?></td>
-                        <td><span class="badge bg-<?= $job['status'] === 'approved' ? 'success' : ($job['status'] === 'pending' ? 'warning' : 'secondary') ?>">
-                            <?= htmlspecialchars(ucfirst($job['status'])) ?>
-                        </span></td>
+                        <td>
+                            <span class="badge bg-<?= $job['status'] === 'approved' ? 'success' : ($job['status'] === 'pending' ? 'warning' : 'secondary') ?>">
+                                <?= htmlspecialchars(ucfirst($job['status'])) ?>
+                            </span>
+                        </td>
                         <td><?= htmlspecialchars($job['deadline']) ?></td>
+                        <td>
+                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editJob<?= $job['id'] ?>">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <a href="?delete=<?= $job['id'] ?>" 
+                               onclick="return confirm('Are you sure you want to delete this job?');"
+                               class="btn btn-sm btn-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
                     </tr>
+
+                    <!-- Edit Job Modal -->
+                    <div class="modal fade" id="editJob<?= $job['id'] ?>" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <form method="POST">
+                                    <div class="modal-header bg-primary text-white">
+                                        <h5 class="modal-title"><i class="fa-solid fa-pen"></i> Edit Job</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="hidden" name="job_id" value="<?= $job['id'] ?>">
+                                        <div class="mb-3">
+                                            <label class="form-label">Job Title</label>
+                                            <input type="text" name="title" class="form-control" required value="<?= htmlspecialchars($job['title']) ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Category</label>
+                                            <select name="category_id" class="form-select" required>
+                                                <?php foreach ($categories as $cat): ?>
+                                                    <option value="<?= $cat['id'] ?>" <?= $cat['id'] == $job['category_id'] ? 'selected' : '' ?>>
+                                                        <?= htmlspecialchars($cat['category_name']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Location</label>
+                                            <input type="text" name="location" class="form-control" required value="<?= htmlspecialchars($job['location']) ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Salary (USD)</label>
+                                            <input type="number" name="salary" step="0.01" class="form-control" required value="<?= htmlspecialchars($job['salary']) ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Deadline</label>
+                                            <input type="date" name="deadline" class="form-control" required value="<?= htmlspecialchars($job['deadline']) ?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Requirements</label>
+                                            <textarea name="requirements" class="form-control" rows="3"><?= htmlspecialchars($job['requirements']) ?></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Description</label>
+                                            <textarea name="description" class="form-control" rows="4" required><?= htmlspecialchars($job['description']) ?></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" name="update_job" class="btn btn-primary">Save Changes</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Edit Modal -->
+
                 <?php endforeach; ?>
             </tbody>
         </table>
@@ -81,7 +192,6 @@ $categories = $catController->getAllCategories();
             <label class="form-label">Job Title</label>
             <input type="text" name="title" class="form-control" required>
         </div>
-
         <div class="mb-3">
             <label class="form-label">Category</label>
             <select name="category_id" class="form-select" required>
@@ -91,33 +201,27 @@ $categories = $catController->getAllCategories();
                 <?php endforeach; ?>
             </select>
         </div>
-
         <div class="mb-3">
             <label class="form-label">Location</label>
             <input type="text" name="location" class="form-control" required>
         </div>
-
         <div class="mb-3">
             <label class="form-label">Salary (USD)</label>
             <input type="number" name="salary" step="0.01" class="form-control" required>
         </div>
-
         <div class="mb-3">
             <label class="form-label">Deadline</label>
             <input type="date" name="deadline" class="form-control" required>
         </div>
-
         <div class="mb-3">
             <label class="form-label">Requirements</label>
             <textarea name="requirements" class="form-control" rows="3"></textarea>
         </div>
-
         <div class="mb-3">
             <label class="form-label">Description</label>
             <textarea name="description" class="form-control" rows="4" required></textarea>
         </div>
-
-        <button type="submit" class="btn btn-primary">Post Job</button>
+        <button type="submit" name="create_job" class="btn btn-primary">Post Job</button>
     </form>
 </div>
 

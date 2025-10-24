@@ -42,6 +42,15 @@ if ($action == 'deleteUser' && $id) {
         exit;
     }
 }
+if ($action === 'deleteJob' && $id) {
+    $jobId = $id;
+    $reason = $_GET['reason'] ?? 'No reason specified';
+
+    $job = $jobModel->getJobById($jobId);
+    $jobModel->deleteJobWithReason($job, $reason);
+    header("Location: /WebProgAssignment251/app/Views/admin/jobs.php?deleted=1");
+    exit;
+}
 
 class AdminController {
     private $db;
