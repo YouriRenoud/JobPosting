@@ -8,49 +8,12 @@ require_once '../../controllers/CategoriesController.php';
 
 $user_id = $_SESSION['user']['id'];
 $empController = new EmployersController();
-$jobsController = new JobsController();
 $catController = new CategoriesController();
 
 $employer = $empController->getProfile($user_id);
 if (!$employer) {
     header("Location: register.php");
     exit;
-}
-
-if (isset($_GET['delete'])) {
-    $job_id = (int)$_GET['delete'];
-    $jobsController->deleteJob($job_id, $employer['id']);
-    $message = "Job deleted successfully.";
-}
-
-if (isset($_POST['update_job'])) {
-    $job_id = (int)$_POST['job_id'];
-    $data = [
-        'category_id' => $_POST['category_id'],
-        'title' => $_POST['title'],
-        'location' => $_POST['location'],
-        'description' => $_POST['description'],
-        'requirements' => $_POST['requirements'],
-        'salary' => $_POST['salary'],
-        'deadline' => $_POST['deadline']
-    ];
-    $jobsController->updateJob($job_id, $data);
-    $message = "Job updated successfully.";
-}
-
-if (isset($_POST['create_job'])) {
-    $data = [
-        'employer_id' => $employer['id'],
-        'category_id' => $_POST['category_id'],
-        'title' => $_POST['title'],
-        'location' => $_POST['location'],
-        'description' => $_POST['description'],
-        'requirements' => $_POST['requirements'],
-        'salary' => $_POST['salary'],
-        'deadline' => $_POST['deadline']
-    ];
-    $jobsController->createJob($data);
-    $message = "New job posted successfully! Waiting for approval.";
 }
 
 $jobs = $empController->getMyJobs($employer['id']);

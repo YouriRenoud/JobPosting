@@ -129,6 +129,34 @@ class Job {
         return $stmt->execute();
     }
 
+    public function updateJobDetails($job_id, $data) {
+        $query = "UPDATE {$this->table_name} SET ";
+        $fields = [];
+        $params = [];
+
+        foreach (['category_id', 'title', 'location', 'description', 'requirements', 'salary', 'deadline'] as $column) {
+            if (isset($data[$column]) && $data[$column] !== null) {
+                $fields[] = "$column = :$column";
+                $params[":$column"] = $data[$column];
+            }
+        }
+
+        if (empty($fields)) {
+            return false;
+        }
+
+        $query .= implode(', ', $fields) . " WHERE id = :id";
+
+        $stmt = $this->conn->prepare($query);
+
+        foreach ($params as $key => $value) {
+            $stmt->bindValue($key, $value);
+        }
+        $stmt->bindValue(':id', $job_id);
+
+        return $stmt->execute();
+    }
+
     public function delete($id) {
         $query = "DELETE FROM {$this->table_name} WHERE id=:id";
         $stmt = $this->conn->prepare($query);

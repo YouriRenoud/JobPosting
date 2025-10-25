@@ -30,10 +30,32 @@ class Application {
         return $stmt->execute();
     }
 
+    public function hasApplied($job_id, $email) {
+        $query = "SELECT COUNT(*) FROM {$this->table_name} WHERE job_id = :job_id AND applicant_email = :email";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":job_id", $job_id);
+        $stmt->bindParam(":email", $email);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
     public function getByJob($job_id) {
         $query = "SELECT * FROM {$this->table_name} WHERE job_id = :job_id ORDER BY applied_at DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":job_id", $job_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getByEmail($email) {
+        $query = "SELECT *, j.title, j.location, e.company_name
+                  FROM {$this->table_name} a
+                  JOIN Jobs j ON a.job_id = j.id
+                  JOIN Employers e ON j.employer_id = e.id
+                  WHERE a.applicant_email = :email
+                  ORDER BY a.applied_at DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":email", $email);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

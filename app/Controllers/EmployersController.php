@@ -2,6 +2,45 @@
 require_once __DIR__ . '/../../config/Database.php';
 require_once __DIR__ . '/../models/Employer.php';
 require_once __DIR__ . '/../models/Job.php';
+require_once __DIR__ . '/../controllers/JobsController.php';
+
+$jobsController = new JobsController();
+
+if (isset($_GET['delete'])) {
+    $job_id = (int)$_GET['delete'];
+    $jobsController->deleteJob($job_id, $employer['id']);
+    $message = "Job deleted successfully.";
+}
+
+if (isset($_POST['update_job'])) {
+    $job_id = (int)$_POST['job_id'];
+    $data = [
+        'category_id' => $_POST['category_id'],
+        'title' => $_POST['title'],
+        'location' => $_POST['location'],
+        'description' => $_POST['description'],
+        'requirements' => $_POST['requirements'],
+        'salary' => $_POST['salary'],
+        'deadline' => $_POST['deadline']
+    ];
+    $jobsController->updateJob($job_id, $data);
+    $message = "Job updated successfully.";
+}
+
+if (isset($_POST['create_job'])) {
+    $data = [
+        'employer_id' => $employer['id'],
+        'category_id' => $_POST['category_id'],
+        'title' => $_POST['title'],
+        'location' => $_POST['location'],
+        'description' => $_POST['description'],
+        'requirements' => $_POST['requirements'],
+        'salary' => $_POST['salary'],
+        'deadline' => $_POST['deadline']
+    ];
+    $jobsController->createJob($data);
+    $message = "New job posted successfully! Waiting for approval.";
+}
 
 class EmployersController {
     private $db;

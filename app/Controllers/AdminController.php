@@ -51,6 +51,19 @@ if ($action === 'deleteJob' && $id) {
     header("Location: /WebProgAssignment251/app/Views/admin/jobs.php?deleted=1");
     exit;
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'editJob') {
+    $id = $_POST['id'];
+    $title = $_POST['title'];
+    $location = $_POST['location'];
+    $description = $_POST['description'];
+    $requirements = $_POST['requirements'];
+
+    $adminController = new AdminController();
+    $adminController->updateJob($id, $title, $location, $description, $requirements);
+
+    header("Location: /WebProgAssignment251/app/Views/admin/jobs.php?updated=1");
+    exit;
+}
 
 class AdminController {
     private $db;
@@ -105,6 +118,21 @@ class AdminController {
         $action->job_id = $id;
         $action->action_type = 'reject';
         $action->logAction();
+    }
+
+    public function updateJob($id, $title, $location, $description, $requirements) {
+        $job = new Job($this->db);
+        $job->id = $id;
+        $job->title = $title;
+        $job->location = $location;
+        $job->description = $description;
+        $job->requirements = $requirements;
+        return $job->updateJobDetails($id, [
+            'title' => $title,
+            'location' => $location,
+            'description' => $description,
+            'requirements' => $requirements
+        ]);
     }
 
     public function getStats() {

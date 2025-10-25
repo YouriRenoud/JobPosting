@@ -51,5 +51,10 @@ class JobsController {
         $job = new Job($this->db);
         return $job->updateStatus($job_id, $status);
     }
+
+    public function updateJob($job_id, $data) {
+        $job = new Job($this->db);
+        return $job->updateJobDetails($job_id, $data);
+    }
 }
 ?>
