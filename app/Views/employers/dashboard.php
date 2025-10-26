@@ -75,18 +75,22 @@ $notifications = $empController->getNotifications($employer['id']);
                         </td>
                         <td><?= htmlspecialchars($job['deadline']) ?></td>
                         <td>
+                            <a href="applications.php?job_id=<?= $job['id'] ?>" class="btn btn-sm btn-info text-white">
+                                <i class="fa-solid fa-users"></i> View Applications
+                            </a>
+
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editJob<?= $job['id'] ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </button>
+
                             <a href="?delete=<?= $job['id'] ?>" 
-                               onclick="return confirm('Are you sure you want to delete this job?');"
-                               class="btn btn-sm btn-danger">
+                            onclick="return confirm('Are you sure you want to delete this job?');"
+                            class="btn btn-sm btn-danger">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
                         </td>
                     </tr>
 
-                    <!-- Edit Job Modal -->
                     <div class="modal fade" id="editJob<?= $job['id'] ?>" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
@@ -140,7 +144,6 @@ $notifications = $empController->getNotifications($employer['id']);
                             </div>
                         </div>
                     </div>
-                    <!-- End Edit Modal -->
 
                 <?php endforeach; ?>
             </tbody>

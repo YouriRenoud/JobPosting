@@ -40,7 +40,10 @@ class Application {
     }
 
     public function getByJob($job_id) {
-        $query = "SELECT * FROM {$this->table_name} WHERE job_id = :job_id ORDER BY applied_at DESC";
+        $query = "SELECT *
+                FROM {$this->table_name} 
+                WHERE job_id = :job_id 
+                ORDER BY applied_at DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":job_id", $job_id);
         $stmt->execute();
@@ -49,11 +52,11 @@ class Application {
 
     public function getByEmail($email) {
         $query = "SELECT *, j.title, j.location, e.company_name
-                  FROM {$this->table_name} a
-                  JOIN Jobs j ON a.job_id = j.id
-                  JOIN Employers e ON j.employer_id = e.id
-                  WHERE a.applicant_email = :email
-                  ORDER BY a.applied_at DESC";
+                FROM {$this->table_name} a
+                JOIN Jobs j ON a.job_id = j.id
+                JOIN Employers e ON j.employer_id = e.id
+                WHERE a.applicant_email = :email
+                ORDER BY a.applied_at DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":email", $email);
         $stmt->execute();

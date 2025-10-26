@@ -27,5 +27,18 @@ class AuthController {
         }
         return false;
     }
+
+    public function getUserById($id) {
+        $user = new User($this->db);
+        return $user->getById($id);
+    }
+
+    public function updateProfile($id, $data) {
+        $user = new User($this->db);
+        $user->id = $id;
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+        return $user->update();
+    }
 }
 ?>

@@ -54,6 +54,7 @@ session_start();
                     <?php elseif ($role === 'visitor'): ?>
                         <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
                         <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Company'?'active':'') ?>" href="/WebProgAssignment251/public/applications.php">Applications</a></li>
+                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Profile'?'active':'') ?>" href="/WebProgAssignment251/public/account.php">My Account</a></li>
                     <?php endif; ?>
 
                     <li class="nav-item">

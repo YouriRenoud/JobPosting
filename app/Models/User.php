@@ -34,6 +34,25 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getById($id) {
+        $query = "SELECT * FROM {$this->table_name} WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function update() {
+        $query = "UPDATE {$this->table_name}
+                SET name=:name, email=:email
+                WHERE id=:id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":email", $this->email);
+        return $stmt->execute();
+    }
+
     public function getAll() {
         $query = "SELECT * FROM {$this->table_name}";
         return $this->conn->query($query);
