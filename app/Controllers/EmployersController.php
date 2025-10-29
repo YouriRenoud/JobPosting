@@ -29,7 +29,7 @@ if (isset($_POST['update_job'])) {
 
 if (isset($_POST['create_job'])) {
     $data = [
-        'employer_id' => $employer['id'],
+        'employer_id' => $_POST['employer_id'],
         'category_id' => $_POST['category_id'],
         'title' => $_POST['title'],
         'location' => $_POST['location'],

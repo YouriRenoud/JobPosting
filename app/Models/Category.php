@@ -21,7 +21,8 @@ class Category {
 
     public function getAll() {
         $query = "SELECT * FROM {$this->table_name} ORDER BY category_name ASC";
-        return $this->conn->query($query);
+        $stmt = $this->conn->query($query);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function delete($id) {
