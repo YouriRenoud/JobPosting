@@ -30,7 +30,6 @@ session_start();
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav mb-2 mb-lg-0">
-
                 <?php if (isset($_SESSION['user'])): ?>
                     <?php 
                     $role = $_SESSION['user']['role']; 
