@@ -32,30 +32,29 @@ session_start();
             <ul class="navbar-nav mb-2 mb-lg-0">
 
                 <?php if (isset($_SESSION['user'])): ?>
-                    <?php $role = $_SESSION['user']['role']; ?>
-
-                    <?php if ($role === 'admin'): ?>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Categories'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/categories.php">Categories</a></li>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Users'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/users.php">Users</a></li>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Job Postings'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/jobs.php">Job Postings</a></li>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Moderate'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/moderate.php">Moderate</a></li>
-
-                    <?php elseif ($role === 'staff'): ?>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Job Postings'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/jobs.php">Job Postings</a></li>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Moderate'?'active':'') ?>" href="/WebProgAssignment251/app/Views/admin/moderate.php">Moderate</a></li>
-
-                    <?php elseif ($role === 'employer'): ?>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Company'?'active':'') ?>" href="/WebProgAssignment251/app/Views/employers/register.php">Company</a></li>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='New Job'?'active':'') ?>" href="/WebProgAssignment251/app/Views/employers/dashboard.php">My Jobs</a></li>
-
-                    <?php elseif ($role === 'visitor'): ?>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Company'?'active':'') ?>" href="/WebProgAssignment251/public/applications.php">Applications</a></li>
-                        <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Profile'?'active':'') ?>" href="/WebProgAssignment251/public/account.php">My Account</a></li>
-                    <?php endif; ?>
+                    <?php 
+                    $role = $_SESSION['user']['role']; 
+                    switch ($role) {
+                        case 'admin':
+                            echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='Categories'?'active':'') . '" href="/WebProgAssignment251/app/Views/admin/categories.php">Categories</a></li>';
+                            echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='Users'?'active':'') . '" href="/WebProgAssignment251/app/Views/admin/users.php">Users</a></li>';
+                            echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='Job Postings'?'active':'') . '" href="/WebProgAssignment251/app/Views/admin/jobs.php">Job Postings</a></li>';
+                            echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='Moderate'?'active':'') . '" href="/WebProgAssignment251/app/Views/admin/moderate.php">Moderate</a></li>';
+                            break;
+                        case 'staff':
+                            echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='Job Postings'?'active':'') . '" href="/WebProgAssignment251/app/Views/admin/jobs.php">Job Postings</a></li>';
+                            echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='Moderate'?'active':'') . '" href="/WebProgAssignment251/app/Views/admin/moderate.php">Moderate</a></li>';
+                            break;
+                        case 'employer':
+                            echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='Company'?'active':'') . '" href="/WebProgAssignment251/app/Views/employers/register.php">Company</a></li>';
+                            echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='New Job'?'active':'') . '" href="/WebProgAssignment251/app/Views/employers/dashboard.php">My Jobs</a></li>';
+                            break;
+                        case 'visitor':
+                            echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='Company'?'active':'') . '" href="/WebProgAssignment251/public/applications.php">Applications</a></li>';
+                            echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='Profile'?'active':'') . '" href="/WebProgAssignment251/public/account.php">My Account</a></li>';
+                            break;
+                    }
+                    ?>
 
                     <li class="nav-item">
                         <a class="btn btn-outline-danger ms-3" href="/WebProgAssignment251/public/logout.php">
