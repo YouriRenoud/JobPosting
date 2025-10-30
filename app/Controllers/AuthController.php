@@ -14,7 +14,7 @@ class AuthController {
         $user = new User($this->db);
         $user->name = $data['name'];
         $user->email = $data['email'];
-        $user->password_hash = password_hash($data['password'], PASSWORD_BCRYPT);
+        $user->password_hash = password_hash($data['password'], PASSWORD_DEFAULT);
         $user->role = $data['role'] ?? 'visitor';
         return $user->create();
     }
