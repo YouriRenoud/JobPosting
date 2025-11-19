@@ -7,58 +7,21 @@ A job board application with role-based access for visitors, employers, staff, a
 ## Setup Instructions
 
 ### Prerequisites
-- PHP 7.4 or higher
-- MySQL 5.7 or higher
-- Apache web server with mod_rewrite enabled
-- Composer (optional, for future dependencies)
+- XAMPP installed
 
 ### Installation Steps
 
 1. **Clone the Repository**
-
+- Clone the repo into htdocs folder of XAMPP
 ```
 git clone <repository-url>
 cd WebProgAssignment251
 ```
 
-
 2. **Database Setup**
-- Create a new MySQL database:
-  ```
-  CREATE DATABASE jobfinder;
-  ```
-- Import the database schema:
-  ```
-  mysql -u root -p jobfinder < database/script.sql
-  ```
-- Or use phpMyAdmin to import `database/script.sql`
+- Upload the file script.sql in database folder to phpMyAdmin
 
-3. **Configure Database Connection**
-- Open `config/database.php`
-- Update the database credentials:
-  ```
-  private $host = "localhost";
-  private $db_name = "jobfinder";
-  private $username = "root";
-  private $password = "your_password";
-  ```
-
-4. **Set Up File Permissions**
-- Ensure the `public/uploads/` directory is writable:
-  ```
-  chmod 755 public/uploads
-  ```
-
-5. **Configure Apache**
-- Ensure your Apache `DocumentRoot` points to the project directory
-- Enable mod_rewrite:
-  ```
-  a2enmod rewrite
-  service apache2 restart
-  ```
-- Make sure `.htaccess` files are allowed in your Apache configuration
-
-6. **Access the Application**
+3. **Access the Application**
 - Open your browser and navigate to:
   ```
   http://localhost/WebProgAssignment251/public/index.php
@@ -68,10 +31,14 @@ cd WebProgAssignment251
 
 After running the database script, you can log in with these default accounts:
 
-- **Admin**: admin@jobfinder.com / admin123
-- **Staff**: staff@jobfinder.com / staff123
-- **Employer**: employer@company.com / employer123
-- **Visitor**: visitor@example.com / visitor123
+- **Admin**: admin@example.com / admin123
+- **Staff**: staff@example.com / staff123
+- **Employers**:
+  + hr@techcorp.com / techcorp
+  + recruit@finbank.com / finbank
+  + viettel@example.com / viettel
+  + hoabinh@example.com / hoabinh
+  + jobs@meditech.com / meditech
 
 ### Troubleshooting
 
@@ -149,11 +116,3 @@ WebProgAssignment251/
 - **Category Management**: Organize jobs by categories
 - **User Management**: Admin can manage all users
 - **Company Profiles**: Employers can create company profiles with logos
-
-## Technologies Used
-
-- PHP 7.4+
-- MySQL
-- Bootstrap 5.3.3
-- Font Awesome 6.5.0
-- PDO for database operations
