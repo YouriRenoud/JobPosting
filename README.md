@@ -40,13 +40,6 @@ After running the database script, you can log in with these default accounts:
   + hoabinh@example.com / hoabinh
   + jobs@meditech.com / meditech
 
-### Troubleshooting
-
-- **Database Connection Error**: Verify your credentials in `config/database.php`
-- **File Upload Issues**: Check that `public/uploads/` has write permissions
-- **404 Errors**: Ensure mod_rewrite is enabled and `.htaccess` is being read
-- **Session Issues**: Verify that session.save_path is writable in your php.ini
-
 ## Project Structure
 ```
 WebProgAssignment251/
