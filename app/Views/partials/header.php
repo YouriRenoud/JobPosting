@@ -49,7 +49,6 @@ session_start();
                             echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='New Job'?'active':'') . '" href="/WebProgAssignment251/app/Views/employers/dashboard.php">My Jobs</a></li>';
                             break;
                         case 'visitor':
-                            echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='Company'?'active':'') . '" href="/WebProgAssignment251/public/applications.php">Applications</a></li>';
                             echo '<li class="nav-item"><a class="nav-link ' . ($pageTitle=='Profile'?'active':'') . '" href="/WebProgAssignment251/public/account.php">My Account</a></li>';
                             break;
                     }

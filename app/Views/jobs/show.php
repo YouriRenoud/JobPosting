@@ -62,14 +62,6 @@ if (!$job) {
             <a href="../../../public/index.php" class="btn btn-outline-secondary">
                 <i class="fa-solid fa-arrow-left"></i> Back to Jobs
             </a>
-
-            <?php if ($job['status'] === 'approved' && strtotime($job['deadline']) > time()): ?>
-                <a href="apply.php?job_id=<?= $job['id'] ?>" class="btn btn-primary">
-                    <i class="fa-solid fa-paper-plane"></i> Apply Now
-                </a>
-            <?php else: ?>
-                <span class="badge bg-secondary p-2">This job is no longer accepting applications.</span>
-            <?php endif; ?>
         </div>
     </div>
 </div>

@@ -63,17 +63,6 @@ CREATE TABLE StaffActions (
     FOREIGN KEY (job_id) REFERENCES Jobs(id) ON DELETE CASCADE
 );
 
-CREATE TABLE Applications (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    job_id INT NOT NULL,
-    applicant_name VARCHAR(150) NOT NULL,
-    applicant_email VARCHAR(150) NOT NULL,
-    resume VARCHAR(255),
-    cover_letter TEXT,
-    applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (job_id) REFERENCES Jobs(id) ON DELETE CASCADE
-);
-
 CREATE TABLE Notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
     employer_id INT NOT NULL,

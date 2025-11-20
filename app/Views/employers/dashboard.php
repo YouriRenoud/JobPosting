@@ -77,9 +77,6 @@ $notifications = $empController->getNotifications($employer['id']);
                         </td>
                         <td><?= htmlspecialchars($job['deadline']) ?></td>
                         <td>
-                            <a href="applications.php?job_id=<?= $job['id'] ?>" class="btn btn-sm btn-info text-white">
-                                <i class="fa-solid fa-users"></i> View Applications
-                            </a>
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editJob<?= $job['id'] ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </button>
