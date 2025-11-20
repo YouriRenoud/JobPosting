@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Block direct access to sensitive files and folders
+RewriteRule ^database/ - [F,L]
+RewriteRule ^config/ - [F,L]
+RewriteRule ^public/uploads/ - [F,L]
+RewriteRule ^app/Views/images/ - [F,L]
+
+# Redirect only if the request is for the root of the project
+RewriteCond %{REQUEST_URI} ^/WebProgAssignment251/?$
+RewriteRule ^ /WebProgAssignment251/public/index.php [L,R=302]
