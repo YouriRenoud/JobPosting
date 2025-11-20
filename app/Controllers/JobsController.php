@@ -37,6 +37,17 @@ class JobsController {
         return $job->create();
     }
 
+    public function deleteJob($job_id, $employer_id = null) {
+        $job = new Job($this->db);
+        if ($employer_id !== null) {
+            $jobData = $job->getJobById($job_id);
+            if (!$jobData || $jobData['employer_id'] != $employer_id) {
+                return false;
+            }
+        }
+        return $job->delete($job_id);
+    }
+
     public function showByCategory($category_id) {
         $job = new Job($this->db);
         return $job->getByCategory($category_id);

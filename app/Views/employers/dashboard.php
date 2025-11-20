@@ -80,7 +80,7 @@ $notifications = $empController->getNotifications($employer['id']);
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editJob<?= $job['id'] ?>">
                                 <i class="fa-solid fa-pen"></i>
                             </button>
-                            <a href="?delete=<?= $job['id'] ?>" 
+                            <a href="?delete=<?= $job['id'] ?>&employer_id=<?= $employer['id'] ?>"
                                onclick="return confirm('Are you sure you want to delete this job?');"
                                class="btn btn-sm btn-danger">
                                 <i class="fa-solid fa-trash"></i>

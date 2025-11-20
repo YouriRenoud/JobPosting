@@ -72,7 +72,7 @@ class Job {
 
     public function getByCategory($category_id) {
         $query = "SELECT j.*, e.company_name, c.category_name
-                FROM Jobs j
+                FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id
                 WHERE j.status = 'approved' AND j.category_id = :category_id
@@ -85,10 +85,10 @@ class Job {
 
     public function getJobById($id) {
         $query = "SELECT j.*, e.company_name, c.category_name
-                FROM Jobs j
+                FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id
-                WHERE j.id = :id AND j.status = 'approved'
+                WHERE j.id = :id
                 LIMIT 1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
@@ -98,7 +98,7 @@ class Job {
 
     public function getByEmployer($employer_id) {
         $query = "SELECT j.*, c.category_name
-                FROM Jobs j
+                FROM {$this->table_name} j
                 JOIN JobCategories c ON j.category_id = c.id
                 WHERE j.employer_id = :employer_id
                 ORDER BY j.created_at DESC";
@@ -110,7 +110,7 @@ class Job {
 
     public function getByStatus($status) {
         $query = "SELECT j.*, e.company_name, c.category_name
-                FROM Jobs j
+                FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id
                 WHERE j.status = :status

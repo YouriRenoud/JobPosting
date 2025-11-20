@@ -6,9 +6,10 @@ require_once __DIR__ . '/../controllers/JobsController.php';
 
 $jobsController = new JobsController();
 
-if (isset($_GET['delete'])) {
+if (isset($_GET['delete']) && isset($_GET['employer_id'])) {
     $job_id = (int)$_GET['delete'];
-    $jobsController->deleteJob($job_id, $employer['id']);
+    $employer_id = (int)$_GET['employer_id'];
+    $jobsController->deleteJob($job_id, $employer_id);
     $message = "Job deleted successfully.";
 }
 
