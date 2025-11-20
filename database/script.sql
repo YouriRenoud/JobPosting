@@ -4,7 +4,6 @@ CREATE DATABASE IF NOT EXISTS job_posting_website;
 USE job_posting_website;
 
 DROP TABLE IF EXISTS Notifications;
-DROP TABLE IF EXISTS Applications;
 DROP TABLE IF EXISTS StaffActions;
 DROP TABLE IF EXISTS Jobs;
 DROP TABLE IF EXISTS JobCategories;
