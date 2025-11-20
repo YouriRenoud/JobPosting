@@ -51,7 +51,7 @@ if (!empty($keyword)) {
     <div class="row text-center">
         <?php foreach ($categories as $cat): ?>
             <div class="col-md-2 col-6 mb-3">
-                <a href="?category_id=<?= $cat['id'] ?>"
+                <a  href="<?= (isset($category_id) && $category_id == $cat['id']) ? 'index.php' : '?category_id=' . $cat['id'] ?>"
                     class="btn <?= (isset($category_id) && $category_id == $cat['id']) ? 'btn-primary' : 'btn-outline-primary' ?> w-100">
                     <?= htmlspecialchars($cat['category_name']) ?>
                 </a>
