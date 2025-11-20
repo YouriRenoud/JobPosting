@@ -19,9 +19,9 @@
             <div class="col-md-4">
                 <h6 class="fw-bold text-uppercase">Follow Us</h6>
                 <div class="social-icons">
-                    <a href="#" class="text-secondary me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
-                    <a href="#" class="text-secondary me-3"><i class="fab fa-linkedin-in fa-lg"></i></a>
-                    <a href="#" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="/WebProgAssignment251/public/contact.php" class="text-secondary me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="/WebProgAssignment251/public/contact.php" class="text-secondary me-3"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                    <a href="/WebProgAssignment251/public/contact.php" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
                 </div>
             </div>
         </div>
