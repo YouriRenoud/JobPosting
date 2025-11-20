@@ -11,13 +11,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         'name' => $_POST['name'],
         'email' => $_POST['email'],
         'password' => $_POST['password'],
-        'role' => $_POST['role']
+        'role' => 'employer'
     ];
 
-    if ($authController->register($data)) {
-        $message = "Registration successful! You can now log in.";
-    } else {
-        $message = "Error during registration. Try again.";
+    try {
+        if ($authController->register($data)) {
+            $message = "Registration successful! You can now log in.";
+        } else {
+            $message = "Error during registration. Try again.";
+        }
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000) {
+            $message = "This email is already registered. Please use a different email or log in.";
+        } else {
+            $message = "Error during registration. Try again.";
+        }
     }
 }
 ?>
@@ -46,14 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" id="password" name="password" class="form-control" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="role" class="form-label">Account Type</label>
-                        <select id="role" name="role" class="form-select" required>
-                            <option value="employer">Employer</option>
-                            <option value="visitor">Job Seeker</option>
-                        </select>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">Sign Up</button>
