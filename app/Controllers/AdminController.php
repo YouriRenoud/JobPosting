@@ -102,7 +102,7 @@ class AdminController {
         $job = new Job($this->db);
         return $job->updateStatus($id, 'approved');
 
-        $action = new StaffActions($this->db);
+        $action = new StaffAction($this->db);
         $action->staff_id = $_SESSION['user']['id'];
         $action->job_id = $id;
         $action->action_type = 'approve';
@@ -113,7 +113,7 @@ class AdminController {
         $job = new Job($this->db);
         return $job->updateStatus($id, 'rejected');
 
-        $action = new StaffActions($this->db);
+        $action = new StaffAction($this->db);
         $action->staff_id = $_SESSION['user']['id'];
         $action->job_id = $id;
         $action->action_type = 'reject';
