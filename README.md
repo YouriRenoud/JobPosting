@@ -92,12 +92,13 @@ WebProgAssignment251/
 │ └── global.css
 ├── uploads/ // Company logos and resumes
 │
+├── account.php // User profile management
+├── applications.php // View user's job applications
+├── contact.php // Our group's information
 ├── index.php // Homepage and job listings
 ├── login.php // User login
-├── signup.php // User registration
 ├── logout.php // Logout handler
-├── account.php // User profile management
-└── applications.php // View user's job applications
+└── signup.php // User registration
 ```
 
 ## Features
