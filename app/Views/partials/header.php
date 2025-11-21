@@ -22,14 +22,14 @@ session_start();
             <i class="fa-solid fa-briefcase"></i> JobFinder
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        <button class="navbar-toggler bg-primary" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav mb-2 mb-lg-0">
+            <ul class="navbar-nav my-3 mb-lg-0">
                 <?php if (isset($_SESSION['user'])): ?>
                     <?php 
                     $role = $_SESSION['user']['role']; 
@@ -64,13 +64,11 @@ session_start();
                     <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Contact'?'active':'') ?>" href="/WebProgAssignment251/public/contact.php">Contact</a></li>
 
-                    <li class="nav-item">
-                        <a class="btn btn-outline-primary ms-2" href="/WebProgAssignment251/public/login.php">
+                    <li class="nav-item mt-3">
+                        <a class="btn btn-outline-primary" href="/WebProgAssignment251/public/login.php">
                             <i class="fa-solid fa-user"></i> Login
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary ms-2" href="/WebProgAssignment251/public/signup.php">
+                        <a class="btn btn-primary" href="/WebProgAssignment251/public/signup.php">
                             <i class="fa-solid fa-user-plus"></i> Sign Up
                         </a>
                     </li>

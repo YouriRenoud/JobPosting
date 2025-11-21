@@ -9,6 +9,10 @@ require_once '../app/controllers/AdminController.php';
 $jobsController = new JobsController();
 $categoriesController = new CategoriesController();
 
+$jobsPerPage = 6;
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$offset = ($page - 1) * $jobsPerPage;
+
 $categories = $categoriesController->getAllCategories();
 
 $keyword = $_GET['keyword'] ?? null;
