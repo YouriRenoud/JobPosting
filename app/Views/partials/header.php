@@ -64,7 +64,7 @@ session_start();
                     <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Home'?'active':'') ?>" href="/WebProgAssignment251/public/index.php">Home</a></li>
                     <li class="nav-item"><a class="nav-link <?= ($pageTitle=='Contact'?'active':'') ?>" href="/WebProgAssignment251/public/contact.php">Contact</a></li>
 
-                    <li class="nav-item mt-3">
+                    <li class="nav-item">
                         <a class="btn btn-outline-primary" href="/WebProgAssignment251/public/login.php">
                             <i class="fa-solid fa-user"></i> Login
                         </a>
