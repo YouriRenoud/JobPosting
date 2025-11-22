@@ -53,43 +53,45 @@ $notifications = $empController->getNotifications($employer['id']);
     <?php if (empty($jobs)): ?>
         <p class="text-muted">You haven't posted any jobs yet.</p>
     <?php else: ?>
-        <table class="table table-striped table-bordered align-middle">
-            <thead class="table-dark">
-                <tr>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Location</th>
-                    <th>Status</th>
-                    <th>Deadline</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($jobs as $job): ?>
+        <div style="overflow-x: auto; width: 100%;">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-dark">
                     <tr>
-                        <td><?= htmlspecialchars($job['title']) ?></td>
-                        <td><?= htmlspecialchars($job['category_name']) ?></td>
-                        <td><?= htmlspecialchars($job['location']) ?></td>
-                        <td>
-                            <span class="badge bg-<?= $job['status'] === 'approved' ? 'success' : ($job['status'] === 'pending' ? 'warning' : 'secondary') ?>">
-                                <?= htmlspecialchars(ucfirst($job['status'])) ?>
-                            </span>
-                        </td>
-                        <td><?= htmlspecialchars($job['deadline']) ?></td>
-                        <td>
-                            <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editJob<?= $job['id'] ?>">
-                                <i class="fa-solid fa-pen"></i>
-                            </button>
-                            <a href="?delete=<?= $job['id'] ?>&employer_id=<?= $employer['id'] ?>"
-                               onclick="return confirm('Are you sure you want to delete this job?');"
-                               class="btn btn-sm btn-danger">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </td>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Deadline</th>
+                        <th>Actions</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php foreach ($jobs as $job): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($job['title']) ?></td>
+                            <td><?= htmlspecialchars($job['category_name']) ?></td>
+                            <td><?= htmlspecialchars($job['location']) ?></td>
+                            <td>
+                                <span class="badge bg-<?= $job['status'] === 'approved' ? 'success' : ($job['status'] === 'pending' ? 'warning' : 'secondary') ?>">
+                                    <?= htmlspecialchars(ucfirst($job['status'])) ?>
+                                </span>
+                            </td>
+                            <td><?= htmlspecialchars($job['deadline']) ?></td>
+                            <td>
+                                <button class="btn btn-sm btn-warning text-white" data-bs-toggle="modal" data-bs-target="#editJob<?= $job['id'] ?>" style="width: 6em;">
+                                    <i class="fa-solid fa-pen"></i> Edit
+                                </button>
+                                <a href="?delete=<?= $job['id'] ?>&employer_id=<?= $employer['id'] ?>"
+                                onclick="return confirm('Are you sure you want to delete this job?');"
+                                class="btn btn-sm btn-danger text-white" style="width: 6em;">
+                                    <i class="fa-solid fa-trash"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     <?php endif; ?>
 
     <!-- Modals (placed outside the table) -->

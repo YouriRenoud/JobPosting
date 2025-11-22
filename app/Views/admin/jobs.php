@@ -10,59 +10,63 @@ $jobs = $adminController->getAllJobs();
 <div class="container mt-4" style="min-height: 60vh;">
     <h2 class="mb-4 text-primary"><i class="fa-solid fa-briefcase"></i> All Job Postings</h2>
 
-    <table class="table table-hover align-middle">
-        <thead class="table-light">
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Employer</th>
-                <th>Category</th>
-                <th>Location</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Created</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($jobs as $job): ?>
+    <div style="overflow-x: auto; width: 100%;">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
                 <tr>
-                    <td><?= $job['id'] ?></td>
-                    <td><?= htmlspecialchars($job['title']) ?></td>
-                    <td><?= htmlspecialchars($job['company_name']) ?></td>
-                    <td><?= htmlspecialchars($job['category_name']) ?></td>
-                    <td><?= htmlspecialchars($job['location']) ?></td>
-                    <td><?= htmlspecialchars(substr($job['description'], 0, 50)) ?>...</td>
-                    <td>
-                        <span class="badge bg-<?= $job['status'] === 'approved' ? 'success' : ($job['status'] === 'pending' ? 'warning' : 'secondary') ?>">
-                            <?= htmlspecialchars(ucfirst($job['status'])) ?>
-                        </span>
-                    </td>
-                    <td><?= $job['created_at'] ?></td>
-                    <td>
-                        <button class="btn btn-sm btn-warning text-white me-1"
-                                data-bs-toggle="modal"
-                                data-bs-target="#editModal"
-                                data-job-id="<?= $job['id'] ?>"
-                                data-job-title="<?= htmlspecialchars($job['title']) ?>"
-                                data-job-location="<?= htmlspecialchars($job['location']) ?>"
-                                data-job-description="<?= htmlspecialchars($job['description']) ?>"
-                                data-job-requirements="<?= htmlspecialchars($job['requirements']) ?>">
-                            <i class="fa-solid fa-pen-to-square"></i> Edit
-                        </button>
-
-                        <button class="btn btn-sm btn-danger"
-                                data-bs-toggle="modal"
-                                data-bs-target="#deleteModal"
-                                data-job-id="<?= $job['id'] ?>"
-                                data-job-title="<?= htmlspecialchars($job['title']) ?>">
-                            <i class="fa-solid fa-trash"></i> Delete
-                        </button>
-                    </td>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Employer</th>
+                    <th>Category</th>
+                    <th>Location</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($jobs as $job): ?>
+                    <tr>
+                        <td><?= $job['id'] ?></td>
+                        <td><?= htmlspecialchars($job['title']) ?></td>
+                        <td><?= htmlspecialchars($job['company_name']) ?></td>
+                        <td><?= htmlspecialchars($job['category_name']) ?></td>
+                        <td><?= htmlspecialchars($job['location']) ?></td>
+                        <td><?= htmlspecialchars(substr($job['description'], 0, 50)) ?>...</td>
+                        <td>
+                            <span class="badge bg-<?= $job['status'] === 'approved' ? 'success' : ($job['status'] === 'pending' ? 'warning' : 'secondary') ?>">
+                                <?= htmlspecialchars(ucfirst($job['status'])) ?>
+                            </span>
+                        </td>
+                        <td><?= $job['created_at'] ?></td>
+                        <td>
+                            <button class="btn btn-sm btn-warning text-white me-1"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editModal"
+                                    data-job-id="<?= $job['id'] ?>"
+                                    data-job-title="<?= htmlspecialchars($job['title']) ?>"
+                                    data-job-location="<?= htmlspecialchars($job['location']) ?>"
+                                    data-job-description="<?= htmlspecialchars($job['description']) ?>"
+                                    data-job-requirements="<?= htmlspecialchars($job['requirements']) ?>"
+                                    style="width: 6em;">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                            </button>
+
+                            <button class="btn btn-sm btn-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal"
+                                    data-job-id="<?= $job['id'] ?>"
+                                    data-job-title="<?= htmlspecialchars($job['title']) ?>"
+                                    style="width: 6em;">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
