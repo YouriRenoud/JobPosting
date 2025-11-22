@@ -10,16 +10,40 @@ class JobsController {
         $this->db = $database->getConnection();
     }
 
-    // List all approved jobs
-    public function listApprovedJobs() {
+    public function listApprovedJobsPaginated($limit, $offset) {
+        // To list approved job postings with pagination
         $job = new Job($this->db);
-        return $job->getAllApproved();
+        return $job->getAllApprovedPaginated($limit, $offset);
     }
 
-    // Search jobs by keyword
-    public function searchJobs($keyword) {
+    public function countApprovedJobs() {
+        // To count all approved job postings
         $job = new Job($this->db);
-        return $job->search($keyword);
+        return $job->countAllApproved();
+    }
+
+    public function searchJobsPaginated($keyword, $limit, $offset) {
+        // To search approved job postings with pagination
+        $job = new Job($this->db);
+        return $job->searchPaginated($keyword, $limit, $offset);
+    }
+
+    public function countSearchJobs($keyword) {
+        // To count search results for approved job postings
+        $job = new Job($this->db);
+        return $job->countSearch($keyword);
+    }
+
+    public function showByCategoryPaginated($category_id, $limit, $offset) {
+        // To get job postings by category with pagination
+        $job = new Job($this->db);
+        return $job->getByCategoryPaginated($category_id, $limit, $offset);
+    }
+
+    public function countJobsByCategory($category_id) {
+        // To count job postings by category
+        $job = new Job($this->db);
+        return $job->countByCategory($category_id);
     }
 
     // Employer creates new job

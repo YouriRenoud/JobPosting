@@ -17,10 +17,12 @@ class Job {
     public $status;
 
     public function __construct($db) {
+        // Initialize database connection
         $this->conn = $db;
     }
 
     public function create() {
+        // To create new job postings
         $query = "INSERT INTO {$this->table_name}
             (employer_id, category_id, title, location, description, requirements, salary, deadline, status)
             VALUES (:employer_id, :category_id, :title, :location, :description, :requirements, :salary, :deadline, :status)";
@@ -38,6 +40,7 @@ class Job {
     }
 
     public function getAll() {
+        // To get all job postings
         $query = "SELECT j.*, e.company_name, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
@@ -46,17 +49,89 @@ class Job {
         return $this->conn->query($query);
     }
 
-    public function getAllApproved() {
+    public function getAllApprovedPaginated($limit, $offset) {
+        // To get all approved job postings with pagination
         $query = "SELECT j.*, e.company_name, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id
                 WHERE j.status = 'approved'
-                ORDER BY j.created_at DESC";
-        return $this->conn->query($query);
+                ORDER BY j.created_at DESC
+                LIMIT :limit OFFSET :offset";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countAllApproved() {
+        // To count all approved job postings
+        $query = "SELECT COUNT(*) FROM {$this->table_name} WHERE status = 'approved'";
+        return $this->conn->query($query)->fetchColumn();
+    }
+
+    public function searchPaginated($keyword, $limit, $offset) {
+        // To search approved job postings with pagination
+        $query = "SELECT j.*, e.company_name, c.category_name
+                FROM {$this->table_name} j
+                JOIN Employers e ON j.employer_id = e.id
+                JOIN JobCategories c ON j.category_id = c.id
+                WHERE j.status = 'approved'
+                    AND (j.title LIKE :keyword OR e.company_name LIKE :keyword OR c.category_name LIKE :keyword OR j.location LIKE :keyword)
+                ORDER BY j.created_at DESC
+                LIMIT :limit OFFSET :offset";
+        $stmt = $this->conn->prepare($query);
+        $kw = "%" . $keyword . "%";
+        $stmt->bindParam(":keyword", $kw);
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countSearch($keyword) {
+        // To count search results for approved job postings
+        $query = "SELECT COUNT(*) FROM {$this->table_name} j
+                JOIN Employers e ON j.employer_id = e.id
+                JOIN JobCategories c ON j.category_id = c.id
+                WHERE j.status = 'approved'
+                    AND (j.title LIKE :keyword OR e.company_name LIKE :keyword OR c.category_name LIKE :keyword OR j.location LIKE :keyword)";
+        $stmt = $this->conn->prepare($query);
+        $kw = "%" . $keyword . "%";
+        $stmt->bindParam(":keyword", $kw);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    public function getByCategoryPaginated($category_id, $limit, $offset) {
+        // To get job postings by category with pagination
+        $query = "SELECT j.*, e.company_name, c.category_name
+                FROM {$this->table_name} j
+                JOIN Employers e ON j.employer_id = e.id
+                JOIN JobCategories c ON j.category_id = c.id
+                WHERE j.status = 'approved' AND j.category_id = :category_id
+                ORDER BY j.created_at DESC
+                LIMIT :limit OFFSET :offset";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":category_id", $category_id);
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countByCategory($category_id) {
+        // To count job postings by category
+        $query = "SELECT COUNT(*) FROM {$this->table_name} WHERE status = 'approved' AND category_id = :category_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":category_id", $category_id);
+        $stmt->execute();
+        return $stmt->fetchColumn();
     }
 
     public function search($keyword) {
+        // To search job postings by keyword
         $query = "SELECT j.*, e.company_name, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
@@ -71,6 +146,7 @@ class Job {
     }
 
     public function getByCategory($category_id) {
+        // To get job postings by category
         $query = "SELECT j.*, e.company_name, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
@@ -84,6 +160,7 @@ class Job {
     }
 
     public function getJobById($id) {
+        // To get a job posting by its ID
         $query = "SELECT j.*, e.company_name, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
@@ -97,6 +174,7 @@ class Job {
     }
 
     public function getByEmployer($employer_id) {
+        // To get job postings by employer
         $query = "SELECT j.*, c.category_name
                 FROM {$this->table_name} j
                 JOIN JobCategories c ON j.category_id = c.id
@@ -109,6 +187,7 @@ class Job {
     }
 
     public function getByStatus($status) {
+        // To get job postings by status
         $query = "SELECT j.*, e.company_name, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
@@ -122,6 +201,7 @@ class Job {
     }
 
     public function updateStatus($id, $status) {
+        // To update job posting status
         $query = "UPDATE {$this->table_name} SET status=:status WHERE id=:id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":status", $status);
@@ -130,6 +210,7 @@ class Job {
     }
 
     public function updateJobDetails($job_id, $data) {
+        // To update job posting details
         $query = "UPDATE {$this->table_name} SET ";
         $fields = [];
         $params = [];
@@ -158,6 +239,7 @@ class Job {
     }
 
     public function delete($id) {
+        // To delete a job posting
         $query = "DELETE FROM {$this->table_name} WHERE id=:id";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
@@ -165,6 +247,7 @@ class Job {
     }
     
     public function deleteJobWithReason($job, $reason) {
+        // To delete a job posting with a reason and notify the employer
         $this->delete($job['id']);
 
         $message = "Your job posting '{$job['title']}' was removed. Reason: {$reason}";
@@ -180,6 +263,7 @@ class Job {
     }
 
     public function getNotificationsByEmployer($employer_id) {
+        // To get notifications for an employer
         $query = "SELECT *
                 FROM Notifications n
                 WHERE n.employer_id = :employer_id

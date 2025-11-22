@@ -9,9 +9,11 @@ require_once '../app/controllers/AdminController.php';
 $jobsController = new JobsController();
 $categoriesController = new CategoriesController();
 
-$jobsPerPage = 6;
+$jobsPerPage = 12;
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $offset = ($page - 1) * $jobsPerPage;
+
+$totalJobs = 0;
 
 $categories = $categoriesController->getAllCategories();
 
@@ -19,12 +21,24 @@ $keyword = $_GET['keyword'] ?? null;
 $category_id = $_GET['category_id'] ?? null;
 
 if (!empty($keyword)) {
-    $jobs = $jobsController->searchJobs($keyword);
+    // To search approved job postings with pagination from offset to limit
+    $jobs = $jobsController->searchJobsPaginated($keyword, $jobsPerPage, $offset);
+
+    $totalJobs = $jobsController->countSearchJobs($keyword);
 } elseif (!empty($category_id)) {
-    $jobs = $jobsController->showByCategory($category_id);
+    // To get job postings by category with pagination from offset to limit
+    $jobs = $jobsController->showByCategoryPaginated($category_id, $jobsPerPage, $offset);
+
+    $totalJobs = $jobsController->countJobsByCategory($category_id);
 } else {
-    $jobs = $jobsController->listApprovedJobs();
+    // To list approved job postings with pagination from offset to limit
+    $jobs = $jobsController->listApprovedJobsPaginated($jobsPerPage, $offset);
+
+    $totalJobs = $jobsController->countApprovedJobs();
 }
+
+// Round up total pages: 13 jobs (13/12 = 1.08) -> 2 pages
+$totalPages = ceil($totalJobs / $jobsPerPage);
 ?>
 
 <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] === 'admin') { 
@@ -94,6 +108,18 @@ if (!empty($keyword)) {
                     </div>
                 </div>
             <?php endforeach; ?>
+            <nav aria-label="Job pagination">
+                <ul class="pagination justify-content-center">
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                        <a class="page-link"
+                        href="?<?= http_build_query(array_merge($_GET, ['page' => $i])) ?>">
+                        <?= $i ?>
+                        </a>
+                    </li>
+                    <?php endfor; ?>
+                </ul>
+            </nav>
         </div>
     <?php endif; ?>
 </section>
