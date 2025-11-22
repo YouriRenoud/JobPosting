@@ -14,9 +14,9 @@ session_start();
 
     <link href="/WebProgAssignment251/public/CSS/global.css" rel="stylesheet">
 </head>
-<body>
 
-<nav class="navbar navbar-expand-lg sticky-top bg-dark shadow-sm">
+<body>
+<nav class="navbar navbar-expand-lg fixed-top bg-dark shadow-sm">
     <div class="container gap-2">
         <a class="navbar-brand fw-bold text-primary" href="/WebProgAssignment251/public/index.php">
             <i class="fa-solid fa-briefcase"></i> JobFinder
@@ -55,7 +55,7 @@ session_start();
                     ?>
 
                     <li class="nav-item">
-                        <a class="btn btn-outline-danger ms-3" href="/WebProgAssignment251/public/logout.php">
+                        <a class="btn btn-outline-danger" href="/WebProgAssignment251/public/logout.php">
                             <i class="fa-solid fa-right-from-bracket"></i> Logout
                         </a>
                     </li>
