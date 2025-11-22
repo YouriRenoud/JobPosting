@@ -17,7 +17,7 @@ session_start();
 <body>
 
 <nav class="navbar navbar-expand-lg sticky-top bg-dark shadow-sm">
-    <div class="container">
+    <div class="container gap-2">
         <a class="navbar-brand fw-bold text-primary" href="/WebProgAssignment251/public/index.php">
             <i class="fa-solid fa-briefcase"></i> JobFinder
         </a>
@@ -29,7 +29,7 @@ session_start();
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav my-3 mb-lg-0">
+            <ul class="navbar-nav mb-lg-0 gap-2">
                 <?php if (isset($_SESSION['user'])): ?>
                     <?php 
                     $role = $_SESSION['user']['role']; 
