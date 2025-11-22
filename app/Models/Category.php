@@ -31,5 +31,13 @@ class Category {
         $stmt->bindParam(":id", $id);
         return $stmt->execute();
     }
+
+    public function update() {
+        $query = "UPDATE {$this->table_name} SET category_name = :category_name WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":category_name", $this->category_name);
+        $stmt->bindParam(":id", $this->id);
+        return $stmt->execute();
+    }
 }
 ?>

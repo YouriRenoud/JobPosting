@@ -43,5 +43,16 @@ class CategoriesController {
         $cat = new Category($this->db);
         return $cat->delete($id);
     }
+
+    public function updateCategory($id, $name) {
+        $cat = new Category($this->db);
+        $cat->id = $id;
+        $cat->category_name = $name;
+        $query = "UPDATE JobCategories SET category_name = :category_name WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(":category_name", $name);
+        $stmt->bindParam(":id", $id);
+        return $stmt->execute();
+    }
 }
 ?>
