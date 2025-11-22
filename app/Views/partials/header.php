@@ -78,4 +78,4 @@ session_start();
     </div>
 </nav>
 
-<main class="container mt-4">
+<main class="container mt-5">
