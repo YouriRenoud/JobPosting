@@ -34,10 +34,10 @@ $pendingJobs = $adminController->getPendingJobs();
                             <td><?= htmlspecialchars($job['category_name']) ?></td>
                             <td><?= $job['created_at'] ?></td>
                             <td>
-                                <a href="../../controllers/AdminController.php?action=approveJob&id=<?= $job['id'] ?>" class="btn btn-success btn-sm" style="width: 6em;">
+                                <a href="../../controllers/AdminController.php?action=approveJob&id=<?= $job['id'] ?>" class="btn btn-success btn-sm" style="width: 7em;">
                                     <i class="fa-solid fa-check"></i> Approve
                                 </a>
-                                <a href="../../controllers/AdminController.php?action=rejectJob&id=<?= $job['id'] ?>" class="btn btn-danger btn-sm" style="width: 6em;">
+                                <a href="../../controllers/AdminController.php?action=rejectJob&id=<?= $job['id'] ?>" class="btn btn-danger btn-sm" style="width: 7em;">
                                     <i class="fa-solid fa-xmark"></i> Reject
                                 </a>
                             </td>
