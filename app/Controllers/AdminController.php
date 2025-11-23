@@ -100,24 +100,26 @@ class AdminController {
 
     public function approveJob($id) {
         $job = new Job($this->db);
-        return $job->updateStatus($id, 'approved');
 
         $action = new StaffAction($this->db);
         $action->staff_id = $_SESSION['user']['id'];
         $action->job_id = $id;
         $action->action_type = 'approve';
         $action->logAction();
+
+        return $job->updateStatus($id, 'approved');
     }
 
     public function rejectJob($id) {
         $job = new Job($this->db);
-        return $job->updateStatus($id, 'rejected');
 
         $action = new StaffAction($this->db);
         $action->staff_id = $_SESSION['user']['id'];
         $action->job_id = $id;
         $action->action_type = 'reject';
         $action->logAction();
+
+        return $job->updateStatus($id, 'rejected');
     }
 
     public function updateJob($id, $title, $location, $description, $requirements) {
