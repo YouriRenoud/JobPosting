@@ -37,7 +37,7 @@ if (!empty($keyword)) {
     $totalJobs = $jobsController->countApprovedJobs();
 }
 
-// Round up total pages: 13 jobs (13/12 = 1.08) -> 2 pages
+// Round up total pages (12 jobs per page):
 $totalPages = ceil($totalJobs / $jobsPerPage);
 ?>
 
@@ -95,11 +95,26 @@ $totalPages = ceil($totalJobs / $jobsPerPage);
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($job['title']) ?></h5>
-                            <p class="text-muted mb-1">
-                                <i class="fa-solid fa-building"></i> <?= htmlspecialchars($job['company_name']) ?>
-                            </p>
-                            <p class="text-muted">
+                            <div class="d-flex align-items-start mb-3">
+                                <?php if (!empty($job['logo'])): ?>
+                                    <img src="../app/Views/images/<?= htmlspecialchars($job['logo']) ?>" 
+                                        alt="<?= htmlspecialchars($job['company_name']) ?>" 
+                                        class="me-3" 
+                                        style="width: 50px; height: 50px; object-fit: contain; border-radius: 8px; border: 1px solid #e0e0e0; padding: 5px;">
+                                <?php else: ?>
+                                    <div class="me-3 d-flex align-items-center justify-content-center" 
+                                        style="width: 50px; height: 50px; background-color: #f0f0f0; border-radius: 8px; border: 1px solid #e0e0e0;">
+                                        <i class="fa-solid fa-building text-muted"></i>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="flex-grow-1">
+                                    <h5 class="card-title mb-1"><?= htmlspecialchars($job['title']) ?></h5>
+                                    <p class="text-muted mb-0 small">
+                                        <i class="fa-solid fa-building"></i> <?= htmlspecialchars($job['company_name']) ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="text-muted mb-2">
                                 <i class="fa-solid fa-location-dot"></i> <?= htmlspecialchars($job['location']) ?>
                             </p>
                             <p class="small"><?= htmlspecialchars(substr($job['description'], 0, 100)) ?>...</p>

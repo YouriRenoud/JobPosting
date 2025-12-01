@@ -41,7 +41,7 @@ class Job {
 
     public function getAll() {
         // To get all job postings
-        $query = "SELECT j.*, e.company_name, c.category_name
+        $query = "SELECT j.*, e.company_name, e.logo, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id
@@ -51,7 +51,7 @@ class Job {
 
     public function getAllApprovedPaginated($limit, $offset) {
         // To get all approved job postings with pagination
-        $query = "SELECT j.*, e.company_name, c.category_name
+        $query = "SELECT j.*, e.company_name, e.logo, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id
@@ -73,7 +73,7 @@ class Job {
 
     public function searchPaginated($keyword, $limit, $offset) {
         // To search approved job postings with pagination
-        $query = "SELECT j.*, e.company_name, c.category_name
+        $query = "SELECT j.*, e.company_name, e.logo, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id
@@ -106,7 +106,7 @@ class Job {
 
     public function getByCategoryPaginated($category_id, $limit, $offset) {
         // To get job postings by category with pagination
-        $query = "SELECT j.*, e.company_name, c.category_name
+        $query = "SELECT j.*, e.company_name, e.logo, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id
@@ -132,7 +132,7 @@ class Job {
 
     public function search($keyword) {
         // To search job postings by keyword
-        $query = "SELECT j.*, e.company_name, c.category_name
+        $query = "SELECT j.*, e.company_name, e.logo, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id
@@ -147,7 +147,7 @@ class Job {
 
     public function getByCategory($category_id) {
         // To get job postings by category
-        $query = "SELECT j.*, e.company_name, c.category_name
+        $query = "SELECT j.*, e.company_name, e.logo, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id
@@ -161,7 +161,7 @@ class Job {
 
     public function getJobById($id) {
         // To get a job posting by its ID
-        $query = "SELECT j.*, e.company_name, c.category_name
+        $query = "SELECT j.*, e.company_name, e.logo, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id
@@ -188,7 +188,7 @@ class Job {
 
     public function getByStatus($status) {
         // To get job postings by status
-        $query = "SELECT j.*, e.company_name, c.category_name
+        $query = "SELECT j.*, e.company_name, e.logo, c.category_name
                 FROM {$this->table_name} j
                 JOIN Employers e ON j.employer_id = e.id
                 JOIN JobCategories c ON j.category_id = c.id

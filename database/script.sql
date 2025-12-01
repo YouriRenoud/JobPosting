@@ -77,7 +77,8 @@ CREATE TABLE Notifications (
 INSERT INTO Users (name, email, password_hash, role, created_at)
 VALUES
 ('Admin User', 'admin@example.com', '$2y$10$zF8KEh1UmOMPudLKPF6Eq.cUZ8ZPrj84dPIrfSBL8SSCSnf1VxFHu', 'admin', '2025-10-25 08:15:42'),
-('Staff Member', 'staff@example.com', '$2y$10$x37/096J0T.uTTvpIXz0tO7bMlK0VZvYbnmvkMg.nJdSvhk6/SsAO', 'staff', '2025-10-25 08:15:42');
+('Staff Member', 'staff@example.com', '$2y$10$x37/096J0T.uTTvpIXz0tO7bMlK0VZvYbnmvkMg.nJdSvhk6/SsAO', 'staff', '2025-10-25 08:15:42'),
+('Quan', 'quan@gmail.com', '$2y$10$QgqQyVgFYWC6JEUyrH11uuWaKW.5zDfn1Q1GXTp6.3L6Dx7KbME5W', 'visitor', '2025-10-25 08:25:37');
 
 INSERT INTO Users (name, email, password_hash, role, created_at)
 VALUES
@@ -86,7 +87,6 @@ VALUES
 ('Viettel HR', 'viettel@example.com', '$2y$10$9L/2eCu6Z.neqSE66FrGSedLDuSROYsc.gzvUHsEAvH3zWCTgku.S', 'employer', '2025-10-25 08:15:42'),
 ('Hoa Binh Construction', 'hoabinh@example.com', '$2y$10$eQmwrK6dGwpuzA6CehADfOXsflLMmTC9kZLkspKglInjRssT3IqN.', 'employer', '2025-10-25 08:15:42'),
 ('Meditech HR', 'jobs@meditech.com', '$2y$10$lthY8gg4A3X.hFuhSPVt4uqEKuKKAjbck3xmhW1LlVPz7.Pl50kyW', 'employer', '2025-10-25 08:15:42'),
-('Quan', 'quan@gmail.com', '$2y$10$QgqQyVgFYWC6JEUyrH11uuWaKW.5zDfn1Q1GXTp6.3L6Dx7KbME5W', 'visitor', '2025-10-25 08:25:37'),
 ('Vingroup HR', 'hr@vingroup.net', '$2y$10$3lMWIeAjOON6g2ieRfatWe3xlejKByslYJKhsJYS9iU7PBFq9QHKe', 'employer', '2025-11-14 23:47:32'),
 ('FPT Software Recruiter', 'recruitment@fpt.software', '$2y$10$2hYIuTiknm4gZJFfoRUYBuzcXt7bL/N8W9GpSKR/bY9IIVioW8hKm', 'employer', '2025-11-14 23:48:10'),
 ('Vinamilk HR', 'hr@vinamilk.com.vn', '$2y$10$VyJ7rMbIFNaOgdtHEh9g1OguISliDdEE1TejZWQ7JeLHHS4uOwh/e', 'employer', '2025-11-14 23:48:38'),
@@ -95,19 +95,19 @@ VALUES
 
 INSERT INTO Employers (user_id, company_name, logo, website, contact_email, contact_phone, description)
 VALUES
-(3, 'TechCorp', 'techcorp_logo.png', 'https://techcorp.com', 'contact@techcorp.com', '+33123456789', 'A leading software company.'),
-(4, 'FinBank', 'finbank_logo.png', 'https://finbank.com', 'jobs@finbank.com', '+33987654321', 'A trusted name in banking and finance.'),
-(5, 'Viettel', 'viettel_logo.png', 'https://viettel.com.vn', 'contact@viettel.com', '+84888888888', 'Telecommunications and digital transformation leader.'),
-(6, 'Hoa Binh Construction Group', 'hoabinh_logo.png', 'https://hoabinh.com.vn', 'hr@hoabinh.com', '+84999999999', 'Top construction and engineering firm.'),
-(7, 'MediTech Solutions', 'meditech_logo.png', 'https://meditech.com', 'contact@meditech.com', '+33765432109', 'Healthcare technology and medical software company.'),
-(11, 'FPT Software', 'fpt_logo.png', 'https://fpt-software.com', 'contact@fpt-software.com', '+842437689048', 'A global IT services and solutions provider headquartered in Vietnam.'),
-(12, 'Vinamilk', 'vinamilk_logo.png', 'https://www.vinamilk.com.vn', 'vinamilk@vinamilk.com.vn', '+842854155555', 'The largest dairy company in Vietnam.'),
-(13, 'Massey University', 'massey_logo.png', 'https://www.massey.ac.nz', 'contact@massey.ac.nz', '+6463569099', 'An innovative and progressive university in New Zealand.'),
-(14, 'Amazon Web Services (AWS)', 'aws_logo.png', 'https://aws.amazon.com', 'aws@amazon.com', '+12062661000', 'A subsidiary of Amazon providing on-demand cloud computing platforms.'),
-(10, 'Vingroup', 'vingroup_logo.png', 'https://vingroup.net', 'contact@vingroup.net', '+842439749999', 'A leading private conglomerate in Vietnam, focusing on technology, industry, and services.');
+(4, 'TechCorp', 'techcorp_logo.png', 'https://techcorp.com', 'contact@techcorp.com', '+33123456789', 'A leading software company.'),
+(5, 'FinBank', 'finbank_logo.png', 'https://finbank.com', 'jobs@finbank.com', '+33987654321', 'A trusted name in banking and finance.'),
+(6, 'Viettel', 'viettel_logo.png', 'https://viettel.com.vn', 'contact@viettel.com', '+84888888888', 'Telecommunications and digital transformation leader.'),
+(7, 'Hoa Binh Construction Group', 'hoabinh_logo.png', 'https://hoabinh.com.vn', 'hr@hoabinh.com', '+84999999999', 'Top construction and engineering firm.'),
+(8, 'MediTech Solutions', 'meditech_logo.png', 'https://meditech.com', 'contact@meditech.com', '+33765432109', 'Healthcare technology and medical software company.'),
+(10, 'FPT Software', 'fpt_logo.png', 'https://fpt-software.com', 'contact@fpt-software.com', '+842437689048', 'A global IT services and solutions provider headquartered in Vietnam.'),
+(11, 'Vinamilk', 'vinamilk_logo.png', 'https://www.vinamilk.com.vn', 'vinamilk@vinamilk.com.vn', '+842854155555', 'The largest dairy company in Vietnam.'),
+(12, 'Massey University', 'massey_logo.png', 'https://www.massey.ac.nz', 'contact@massey.ac.nz', '+6463569099', 'An innovative and progressive university in New Zealand.'),
+(13, 'Amazon Web Services (AWS)', 'aws_logo.png', 'https://aws.amazon.com', 'aws@amazon.com', '+12062661000', 'A subsidiary of Amazon providing on-demand cloud computing platforms.'),
+(9, 'Vingroup', 'vingroup_logo.png', 'https://vingroup.net', 'contact@vingroup.net', '+842439749999', 'A leading private conglomerate in Vietnam, focusing on technology, industry, and services.');
 
 INSERT INTO JobCategories (category_name)
-VALUES 
+VALUES
 ('IT'),
 ('Finance'),
 ('Marketing'),
@@ -142,16 +142,16 @@ VALUES
 (4, 10, 'Supply Chain Coordinator', 'Da Nang', 'Coordinate logistics and supply chain operations.', 'Experience in ERP systems.', 45000, '2025-12-10', 'approved', '2025-10-25 08:15:42'),
 (4, 10, 'Warehouse Supervisor', 'Hanoi', 'Oversee daily warehouse activities.', '3 years experience in logistics.', 40000, '2025-12-20', 'approved', '2025-10-25 08:15:42'),
 (9, 10, 'Logistics Manager', 'Ho Chi Minh City', 'Oversee and manage the entire logistics lifecycle.', 'Proven experience in a logistics management role.', 55000.00, '2025-12-18', 'approved', '2025-11-15 00:07:23'),
-(11, 1, 'Cloud Solutions Architect', 'Remote', 'Design and implement cloud-based solutions for healthcare clients.', 'AWS or Azure certification required.', 65000.00, '2026-08-15', 'approved', '2025-11-15 00:07:23'),
+(10, 1, 'Cloud Solutions Architect', 'Remote', 'Design and implement cloud-based solutions for healthcare clients.', 'AWS or Azure certification required.', 65000.00, '2026-08-15', 'approved', '2025-11-15 00:07:23'),
 (8, 5, 'Healthcare IT Consultant', 'Da Nang', 'Provide IT consultancy to healthcare organizations.', 'Strong understanding of healthcare systems.', 58000.00, '2025-12-22', 'approved', '2025-11-15 00:07:23'),
 (8, 1, 'AI Research Scientist', 'Hanoi', 'Conduct research and development in the field of Artificial Intelligence.', 'PhD or Masters in a related field.', 70000.00, '2026-08-20', 'approved', '2025-11-15 00:07:23'),
 (9, 8, 'Real Estate Sales Manager', 'Ho Chi Minh City', 'Lead a team of sales executives in the real estate division.', '5+ years of sales experience in real estate.', 68000.00, '2025-12-30', 'approved', '2025-11-15 00:07:23'),
-(11, 1, 'DevOps Engineer', 'Ho Chi Minh City', 'Work on CI/CD pipelines and infrastructure automation.', 'Experience with Docker, Kubernetes, and Jenkins.', 60000.00, '2026-08-10', 'approved', '2025-11-15 00:07:23'),
-(8, 7, 'Graphic Designer', 'Da Nang', 'Create visually appealing graphics for marketing and products.', 'Proficient in Adobe Creative Suite.', 48000.00, '2025-12-25', 'rejected', '2025-11-15 00:07:23'),
-(12, 10, 'Supply Chain Analyst', 'Hanoi', 'Analyze and optimize supply chain processes.', 'Strong analytical skills and experience with supply chain software.', 53000.00, '2025-12-28', 'approved', '2025-11-15 00:07:23'),
+(10, 1, 'DevOps Engineer', 'Ho Chi Minh City', 'Work on CI/CD pipelines and infrastructure automation.', 'Experience with Docker, Kubernetes, and Jenkins.', 60000.00, '2026-08-10', 'approved', '2025-11-15 00:07:23'),
+(8, 7, 'Graphic Designer', 'Da Nang', 'Create visually appealing graphics for marketing and products.', 'Proficient in Adobe Creative Suite.', 48000.00, '2025-12-25', 'pending', '2025-11-15 00:07:23'),
+(6, 10, 'Supply Chain Analyst', 'Hanoi', 'Analyze and optimize supply chain processes.', 'Strong analytical skills and experience with supply chain software.', 53000.00, '2025-12-28', 'approved', '2025-11-15 00:07:23'),
 (10, 6, 'University Lecturer', 'Remote', 'Deliver lectures and tutorials for undergraduate and postgraduate students.', 'PhD in a relevant subject area.', 75000.00, '2026-02-08', 'approved', '2025-11-15 00:07:23'),
-(11, 1, 'Cloud Support Engineer', 'Remote', 'Provide technical support to AWS customers.', 'Experience with cloud computing and networking.', 80000.00, '2026-08-25', 'approved', '2025-11-15 00:07:23'),
-(11, 1, 'Cloud Security', 'Ho Chi Minh city', 'Do stuff about IT and Security', '1 year experience in security or experience in playing CTF challenge', 10000.00, '2025-12-25', 'rejected', '2025-11-15 14:53:24'),
+(2, 1, 'Cloud Support Engineer', 'Remote', 'Provide technical support to AWS customers.', 'Experience with cloud computing and networking.', 80000.00, '2026-08-25', 'approved', '2025-11-15 00:07:23'),
+(8, 1, 'Cloud Security', 'Ho Chi Minh city', 'Do stuff about IT and Security', '1 year experience in security or experience in playing CTF challenge', 10000.00, '2025-12-25', 'rejected', '2025-11-15 14:53:24'),
 (10, 6, 'Teaching Assistant', 'Ha Noi', 'Help professor teach specific major classes in university', 'Have teaching education degree', 7000.00, '2025-12-01', 'rejected', '2025-11-15 15:09:32');
 
 
@@ -159,5 +159,5 @@ INSERT INTO StaffActions (staff_id, job_id, action_type, action_date)
 VALUES
 (2, 1, 'approve', '2025-10-25 08:15:42'),
 (2, 2, 'approve', '2025-10-25 08:15:42'),
-(2, 46, 'reject', '2025-11-15 14:59:53'),
-(2, 48, 'reject', '2025-11-15 15:09:49');
+(2, 31, 'reject', '2025-11-15 14:59:53'),
+(2, 32, 'reject', '2025-11-15 15:09:49');
