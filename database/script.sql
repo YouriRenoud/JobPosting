@@ -5,6 +5,7 @@ USE job_posting_website;
 
 DROP TABLE IF EXISTS Notifications;
 DROP TABLE IF EXISTS StaffActions;
+DROP TABLE IF EXISTS Applications;
 DROP TABLE IF EXISTS Jobs;
 DROP TABLE IF EXISTS JobCategories;
 DROP TABLE IF EXISTS Employers;
@@ -62,6 +63,17 @@ CREATE TABLE StaffActions (
     FOREIGN KEY (job_id) REFERENCES Jobs(id) ON DELETE CASCADE
 );
 
+CREATE TABLE Applications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    job_id INT NOT NULL,
+    applicant_name VARCHAR(150) NOT NULL,
+    applicant_email VARCHAR(150) NOT NULL,
+    resume VARCHAR(255),
+    cover_letter TEXT,
+    applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (job_id) REFERENCES Jobs(id) ON DELETE CASCADE
+);
+
 CREATE TABLE Notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
     employer_id INT NOT NULL,
@@ -78,7 +90,6 @@ INSERT INTO Users (name, email, password_hash, role, created_at)
 VALUES
 ('Admin User', 'admin@example.com', '$2y$10$zF8KEh1UmOMPudLKPF6Eq.cUZ8ZPrj84dPIrfSBL8SSCSnf1VxFHu', 'admin', '2025-10-25 08:15:42'),
 ('Staff Member', 'staff@example.com', '$2y$10$x37/096J0T.uTTvpIXz0tO7bMlK0VZvYbnmvkMg.nJdSvhk6/SsAO', 'staff', '2025-10-25 08:15:42'),
-('Quan', 'quan@gmail.com', '$2y$10$QgqQyVgFYWC6JEUyrH11uuWaKW.5zDfn1Q1GXTp6.3L6Dx7KbME5W', 'visitor', '2025-10-25 08:25:37');
 
 INSERT INTO Users (name, email, password_hash, role, created_at)
 VALUES

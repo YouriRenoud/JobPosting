@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         'name' => $_POST['name'],
         'email' => $_POST['email'],
         'password' => $_POST['password'],
-        'role' => 'employer'
+        'role' => $_POST['role'] ?? 'visitor',
     ];
 
     try {
@@ -54,6 +54,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" id="password" name="password" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Account Type</label>
+                        <select id="role" name="role" class="form-select" required>
+                            <option value="employer">Employer</option>
+                            <option value="visitor">Job Seeker</option>
+                        </select>
                     </div>
 
                     <button type="submit" class="btn btn-primary w-100">Sign Up</button>

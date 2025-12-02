@@ -16,29 +16,29 @@ $id = $_GET['id'] ?? null;
 
 if ($action === 'approveJob' && $id) {
     if ($jobModel->updateStatus($id, 'approved')) {
-        header("Location: /WebProgAssignment251/app/Views/admin/moderate.php?approved=1");
+        header("Location: /JobPosting/app/Views/admin/moderate.php?approved=1");
         exit;
     } else {
-        header("Location: /WebProgAssignment251/app/Views/admin/moderate.php?error=1");
+        header("Location: /JobPosting/app/Views/admin/moderate.php?error=1");
         exit;
     }
 }
 if ($action === 'rejectJob' && $id) {
     if ($jobModel->updateStatus($id, 'rejected')) {
-        header("Location: /WebProgAssignment251/app/Views/admin/moderate.php?rejected=1");
+        header("Location: /JobPosting/app/Views/admin/moderate.php?rejected=1");
         exit;
     } else {
-        header("Location: /WebProgAssignment251/app/Views/admin/moderate.php?error=1");
+        header("Location: /JobPosting/app/Views/admin/moderate.php?error=1");
         exit;
     }
 }
 if ($action == 'deleteUser' && $id) {
     $userModel = new User($db);
     if ($userModel->delete($id)) {
-        header("Location: /WebProgAssignment251/app/Views/admin/users.php?deleted=1");
+        header("Location: /JobPosting/app/Views/admin/users.php?deleted=1");
         exit;
     } else {
-        header("Location: /WebProgAssignment251/app/Views/admin/users.php?error=1");
+        header("Location: /JobPosting/app/Views/admin/users.php?error=1");
         exit;
     }
 }
@@ -48,7 +48,7 @@ if ($action === 'deleteJob' && $id) {
 
     $job = $jobModel->getJobById($jobId);
     $jobModel->deleteJobWithReason($job, $reason);
-    header("Location: /WebProgAssignment251/app/Views/admin/jobs.php?deleted=1");
+    header("Location: /JobPosting/app/Views/admin/jobs.php?deleted=1");
     exit;
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'editJob') {
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['action'] === 'editJob') {
     $adminController = new AdminController();
     $adminController->updateJob($id, $title, $location, $description, $requirements);
 
-    header("Location: /WebProgAssignment251/app/Views/admin/jobs.php?updated=1");
+    header("Location: /JobPosting/app/Views/admin/jobs.php?updated=1");
     exit;
 }
 

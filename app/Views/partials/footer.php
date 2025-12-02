@@ -11,17 +11,17 @@
             <div class="col-md-4 mb-4 mb-md-0">
                 <h6 class="fw-bold text-uppercase">Quick Links</h6>
                 <ul class="list-unstyled small">
-                    <li><a href="/WebProgAssignment251/public/index.php" class="text-secondary text-decoration-none">Home</a></li>
-                    <li><a href="/WebProgAssignment251/public/contact.php" class="text-secondary text-decoration-none">Contact</a></li>
+                    <li><a href="/JobPosting/public/index.php" class="text-secondary text-decoration-none">Home</a></li>
+                    <li><a href="/JobPosting/public/contact.php" class="text-secondary text-decoration-none">Contact</a></li>
                 </ul>
             </div>
 
             <div class="col-md-4">
                 <h6 class="fw-bold text-uppercase">Follow Us</h6>
                 <div class="social-icons">
-                    <a href="/WebProgAssignment251/public/contact.php" class="text-secondary me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
-                    <a href="/WebProgAssignment251/public/contact.php" class="text-secondary me-3"><i class="fab fa-linkedin-in fa-lg"></i></a>
-                    <a href="/WebProgAssignment251/public/contact.php" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="/JobPosting/public/contact.php" class="text-secondary me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="/JobPosting/public/contact.php" class="text-secondary me-3"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                    <a href="/JobPosting/public/contact.php" class="text-secondary"><i class="fab fa-twitter fa-lg"></i></a>
                 </div>
             </div>
         </div>
